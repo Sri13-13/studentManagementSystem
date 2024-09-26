@@ -52,5 +52,14 @@ def edit_student(id):
         return redirect(url_for('home'))
     return render_template('edit.html',student=std)
 
+
+@app.route('/delete/<int:id>',methods=['POST'])
+def delete_student(id):
+    std= Students.query.get_or_404(id)  # get the student by id
+    db.session.delete(std)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
 if __name__=='__main__':
     app.run(debug=True)
